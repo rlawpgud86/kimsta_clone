@@ -1,0 +1,19 @@
+{
+  "name": "kimstagram",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rlawpgud86/kimsta_clone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rlawpgud86/kimsta_clone/issues"
+  },
+  "homepage": "https://github.com/rlawpgud86/kimsta_clone#readme"
+}
