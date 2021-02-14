@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { ApolloServer, gql } from "apollo-server";
+import { ApolloServer, ExpandAbstractTypes, gql } from "apollo-server";
 
 const client = new PrismaClient() // client 객체 생성 
 
@@ -18,26 +18,29 @@ const typeDefs = gql`
   }
   type Mutation {
     createMovie(title: String!, year: Int!, genre: String): Movie
-    deleteMovie(id:Int!): Boolean
+    deleteMovie(id:Int!): Movie
+    updateMovie(id: Int!, year: Int!): Movie
   }
 `;
 
 const resolvers = {
   Query: {
     movies: () => client.movie.findMany(), //여기서 movie는 prisma에서 정의한 schema (model) 테이블 값이다.
-    movie: (_, {id}) => ({ title: "Hello", year: 2021 }),
+    movie: (_, {id}) => client.movie.findUnique({where:{id}})
+
   },
   Mutation: { //movie 테이블 값에 데이터를 추가해보자
-    createMovie: (_, { title, year, genre }) => client.movie.create({data:{
+    createMovie: (_, { title, year, genre }) => client.movie.create({
+      data: {
       title,
       year,
-      genre
+      genre,
     }}),
-    deleteMovie: (_, { id }) => {
-      return true;
-    },
+    deleteMovie: (_, { id }) => client.movie.delete({where: { id }}),
+    updateMovie: (_, { id, year }) => client.movie.update({where: { id }, data: { year }}),
   },
-};
+}
+
 
 const server = new ApolloServer({
   typeDefs,
