@@ -1,5 +1,6 @@
-import bcrypt from "bcrypt"
-import client from "../client";
+require("dotenv").config();
+import bcrypt from "bcrypt";
+import client from "../../client";
 
 export default {
     Mutation: {
@@ -26,7 +27,6 @@ export default {
                 if (existingUser) {
                     throw new Error("이미 계정이 있습니다.")
                 }
-                // db에 userName와 email가 이미 있는지 확인하는 로직
                 const uglyPassword = await bcrypt.hash(password, 10);
                 return client.user.create({
                     data: {
@@ -40,6 +40,6 @@ export default {
             } catch (e) {
                 return e;
             }
-        }
+        },
     }
 };
