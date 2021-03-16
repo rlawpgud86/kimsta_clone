@@ -1,4 +1,3 @@
-require("dotenv").config();
 import bcrypt from "bcrypt";
 import client from "../../client";
 
