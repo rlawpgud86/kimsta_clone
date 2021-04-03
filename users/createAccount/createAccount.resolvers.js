@@ -27,7 +27,7 @@ export default {
                     throw new Error("이미 계정이 있습니다.")
                 }
                 const uglyPassword = await bcrypt.hash(password, 10);
-                return client.user.create({
+                await client.user.create({
                     data: {
                         userName,
                         email,
@@ -35,7 +35,10 @@ export default {
                         lastName,
                         password: uglyPassword,
                     }
-                })
+                });
+                return {
+                    ok: true
+                }
             } catch (e) {
                 return e;
             }
