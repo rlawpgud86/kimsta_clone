@@ -25,10 +25,15 @@ export const protectedResolver = (ourResolver) => (
   info
 ) => {
   if (!context.loggedInUser) {
-    return {
-      ok: false,
-      error: "로그인이 필요합니다. 로그인 해주세요!",
-    };
+    const query = info.operation.operation === "query";
+    if (query) {
+      return null;
+    } else {
+      return {
+        ok: false,
+        error: "로그인이 필요합니다. 로그인 해주세요.",
+      };
+    }
   }
   return ourResolver(root, args, context, info);
 };

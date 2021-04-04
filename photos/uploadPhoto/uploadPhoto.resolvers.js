@@ -14,7 +14,7 @@ export default {
           data: {
             file,
             caption,
-            User: {
+            user: {
               connect: { id: loggedInUser.id },
             },
             ...(hashtagObj.length > 0 && {
