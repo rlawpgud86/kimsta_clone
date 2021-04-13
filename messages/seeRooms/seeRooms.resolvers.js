@@ -7,7 +7,9 @@ export default {
       client.room.findMany({
         where: {
           users: {
-            some: loggedInUser.id,
+            some: {
+              id: loggedInUser.id,
+            },
           },
         },
       })
