@@ -49,7 +49,7 @@ export default {
           if (!room) {
             return {
               ok: false,
-              message: "Room not found",
+              error: "Room not found.",
             };
           }
         }
@@ -71,6 +71,7 @@ export default {
         pubsub.publish(NEW_MESSAGE, { roomUpdates: { ...message } });
         return {
           ok: true,
+          id: message.id,
         };
       }
     ),
